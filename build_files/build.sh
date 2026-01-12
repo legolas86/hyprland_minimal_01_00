@@ -12,9 +12,13 @@ set -ouex pipefail
 # this installs a package from fedora repos
 rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf5 -y install terra-release-extras ghostty starship
+dnf5 config-manager setopt "terra*".enabled=0
+
 dnf5 -y copr enable solopasha/hyprland
 dnf5 group install -y --nobest base-graphical container-management core fonts hardware-support multimedia networkmanager-submodules printing development-tools c-development
-dnf5 -y install tmux code bootc podmansh tcpdump podman-machine gtk4 libadwaita gtk3 gtk-layer-shell gnome-themes-extra adw-gtk3-theme qt6-qtwayland podman-compose podman-tui virt-v2v wireshark tiptop qemu-kvm libvirt virt-install virt-manager toolbox distrobox flatpak tmux rust cargo rustup golang helix bat zoxide fzf tldr btop ripgrep rust rustup cargo fish hyprshot hyprpaper hyprsunset hyprland mako kitty fuzzel hyprpolkitagent NetworkManager-tui pipewire cava alsa-tools qt6ct
+dnf5 -y install tmux code bootc podmansh tcpdump protonvpn-cli podman-machine gtk4 libadwaita gtk3 gtk-layer-shell gnome-themes-extra adw-gtk3-theme qt6-qtwayland podman-compose podman-tui virt-v2v wireshark tiptop qemu-kvm libvirt virt-install virt-manager toolbox distrobox flatpak tmux rust cargo rustup golang helix bat zoxide fzf tldr btop ripgrep rust rustup cargo fish hyprshot hyprpaper hyprsunset hyprland mako kitty fuzzel hyprpolkitagent NetworkManager-tui pipewire cava alsa-tools qt6ct
 dnf5 -y copr disable solopasha/hyprland
 dnf5 clean all
 # Use a COPR Example:
